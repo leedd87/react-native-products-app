@@ -35,7 +35,13 @@ export const AuthProvider = ({ children }: any) => {
 
         try {
             const resp = await cafeApi.post<LoginResponse>('/auth/login', { correo, password });
-            console.log(resp.data)
+            dispatch({
+                type: 'signUp',
+                payload: {
+                    token: resp.data.token,
+                    user: resp.data.usuario
+                }
+            })
         } catch (error) {
             console.log(error)
         }
