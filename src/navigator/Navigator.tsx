@@ -12,6 +12,7 @@ export const Navigator = () => {
     const { status } = useContext(AuthContext);
     status === 'authenticated'
 
+    console.log(status)
     return (
         <Stack.Navigator
             screenOptions={{
