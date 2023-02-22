@@ -42,14 +42,22 @@ export const AuthProvider = ({ children }: any) => {
                     user: resp.data.usuario
                 }
             })
-        } catch (error) {
+        } catch (error: any) {
             console.log(error)
+            dispatch({ type: 'addError', payload: error.response.data.msg })
         }
 
 
     };
     const logOut = () => { };
-    const removeError = () => { };
+    const removeError = () => {
+
+        dispatch({
+            type: 'removeError'
+        })
+    }
+
+
 
     return (
         <AuthContext.Provider value={{
