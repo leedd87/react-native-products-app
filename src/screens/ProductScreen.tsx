@@ -4,6 +4,8 @@ import { Button, ScrollView, StyleSheet, Text, TextInput, View } from 'react-nat
 import { ProductsStackParams } from '../navigator/ProductsNavigator'
 
 import { Picker } from '@react-native-picker/picker';
+import { useCategories } from '../hooks/useCategories';
+import { useForm } from '../hooks/useForm';
 
 
 interface Props extends StackScreenProps<ProductsStackParams, 'ProductScreen'> { }
@@ -11,7 +13,17 @@ interface Props extends StackScreenProps<ProductsStackParams, 'ProductScreen'> {
 export const ProductScreen = ({ navigation, route }: Props) => {
 
 
-    const { name = '', id } = route.params
+    const { name = '', id = '' } = route.params
+
+    const { isLoading, categories } = useCategories()
+
+    const { _id, categoriaId, nombre, img, form, onChange } = useForm({
+        _id: '',
+        categoriaId: '',
+        nombre: name,
+        img: '',
+
+    })
 
     const [selectedLanguage, setSelectedLanguage] = useState();
 
@@ -30,6 +42,8 @@ export const ProductScreen = ({ navigation, route }: Props) => {
                 <TextInput
                     placeholder='Producto'
                     style={styles.textInput}
+                    value={nombre}
+                    onChangeText={value => onChange(value, 'nombre')}
                 />
 
                 {/*Picker/Selector */}
@@ -39,8 +53,16 @@ export const ProductScreen = ({ navigation, route }: Props) => {
                     onValueChange={(itemValue, itemIndex) =>
                         setSelectedLanguage(itemValue)
                     }>
-                    <Picker.Item label="Java" value="java" />
-                    <Picker.Item label="JavaScript" value="js" />
+                    {
+                        categories.map(c => (
+
+                            <Picker.Item
+                                label={c.nombre}
+                                value={c._id}
+                                key={c._id}
+                            />
+                        ))
+                    }
                 </Picker>
 
                 <Text style={styles.label}>Categoria:</Text>
@@ -66,7 +88,7 @@ export const ProductScreen = ({ navigation, route }: Props) => {
 
                 </View>
 
-                <Text>{id} {name}</Text>
+                <Text>{JSON.stringify(form, null, 5)}</Text>
 
             </ScrollView>
         </View>
