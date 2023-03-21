@@ -42,6 +42,8 @@ export interface Producto {
     img?: string;
 }
 
+
+
 // export interface Categoria {
 //     _id: string;
 //     nombre: string;

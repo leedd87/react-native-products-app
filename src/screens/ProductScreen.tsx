@@ -1,11 +1,12 @@
 import { StackScreenProps } from '@react-navigation/stack'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Button, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native'
 import { ProductsStackParams } from '../navigator/ProductsNavigator'
 
 import { Picker } from '@react-native-picker/picker';
 import { useCategories } from '../hooks/useCategories';
 import { useForm } from '../hooks/useForm';
+import { ProductsContext } from '../context/ProductsContext';
 
 
 interface Props extends StackScreenProps<ProductsStackParams, 'ProductScreen'> { }
@@ -16,8 +17,9 @@ export const ProductScreen = ({ navigation, route }: Props) => {
     const { name = '', id = '' } = route.params
 
     const { isLoading, categories } = useCategories()
+    const { loadProductById } = useContext(ProductsContext)
 
-    const { _id, categoriaId, nombre, img, form, onChange } = useForm({
+    const { _id, categoriaId, nombre, img, form, onChange, setFormValue } = useForm({
         _id: '',
         categoriaId: '',
         nombre: name,
@@ -34,6 +36,23 @@ export const ProductScreen = ({ navigation, route }: Props) => {
         })
     }, [])
 
+    useEffect(() => {
+
+        loadProduct()
+    }, [])
+
+
+    const loadProduct = async () => {
+        if (id.length === 0) return;
+
+        const product = await loadProductById(id)
+        setFormValue({
+            _id: id,
+            categoriaId: product.categoria._id,
+            img: product.img || '',
+            nombre
+        })
+    }
 
     return (
         <View style={styles.container}>
