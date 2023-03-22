@@ -36,10 +36,13 @@ export const ProductsProvider = ({ children }: any) => {
 
     };
     const addProduct = async (categoryId: string, productName: string) => {
+        console.log('addProduct')
+        console.log({ categoryId, productName })
 
     };
     const updateProduct = async (categoryId: string, productName: string, productId: string) => {
-
+        console.log('addProduct')
+        console.log({ categoryId, productName, productId })
     };
     const deleteProduct = async (id: string) => {
 
