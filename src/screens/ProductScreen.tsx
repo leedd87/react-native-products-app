@@ -1,6 +1,6 @@
 import { StackScreenProps } from '@react-navigation/stack'
-import React, { useContext, useEffect, useState } from 'react'
-import { Button, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native'
+import React, { useContext, useEffect } from 'react'
+import { Button, Image, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native'
 import { ProductsStackParams } from '../navigator/ProductsNavigator'
 
 import { Picker } from '@react-native-picker/picker';
@@ -27,7 +27,7 @@ export const ProductScreen = ({ navigation, route }: Props) => {
 
     })
 
-    const [selectedLanguage, setSelectedLanguage] = useState();
+
 
     useEffect(() => {
         navigation.setOptions({
@@ -68,10 +68,8 @@ export const ProductScreen = ({ navigation, route }: Props) => {
                 {/*Picker/Selector */}
 
                 <Picker
-                    selectedValue={selectedLanguage}
-                    onValueChange={(itemValue, itemIndex) =>
-                        setSelectedLanguage(itemValue)
-                    }>
+                    selectedValue={categoriaId}
+                    onValueChange={(value) => onChange(value, 'categoriaId')}>
                     {
                         categories.map(c => (
 
@@ -106,8 +104,21 @@ export const ProductScreen = ({ navigation, route }: Props) => {
                     />
 
                 </View>
+                {
+                    (img.length > 0) && (
 
-                <Text>{JSON.stringify(form, null, 5)}</Text>
+                        <Image
+                            source={{ uri: img }}
+                            style={{
+                                marginTop: 20,
+                                width: '100%',
+                                height: 300
+                            }}
+                        />
+
+                    )
+                }
+
 
             </ScrollView>
         </View>
