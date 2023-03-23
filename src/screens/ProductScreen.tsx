@@ -14,8 +14,10 @@ interface Props extends StackScreenProps<ProductsStackParams, 'ProductScreen'> {
 export const ProductScreen = ({ navigation, route }: Props) => {
 
 
-    const { name = '', id = '' } = route.params
 
+    const { name = '', id = '' } = route.params
+    //TESTING
+    console.log(name)
     const { isLoading, categories } = useCategories()
     const { loadProductById, addProduct, updateProduct } = useContext(ProductsContext)
 
