@@ -18,6 +18,7 @@ export const ProductScreen = ({ navigation, route }: Props) => {
     const { name = '', id = '' } = route.params
     //TESTING
     console.log(name)
+    console.log(id)
     const { isLoading, categories } = useCategories()
     const { loadProductById, addProduct, updateProduct } = useContext(ProductsContext)
 
