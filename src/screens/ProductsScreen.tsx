@@ -7,7 +7,7 @@ import { ProductsStackParams } from '../navigator/ProductsNavigator'
 interface Props extends StackScreenProps<ProductsStackParams, 'ProductsScreen'> { }
 
 export const ProductsScreen = ({ navigation }: Props) => {
-    console.log('camera')
+
 
     const [isRefreshing, setIsRefreshing] = useState(false)
 
