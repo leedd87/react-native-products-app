@@ -73,6 +73,8 @@ export const ProductScreen = ({ navigation, route }: Props) => {
         }
     }
 
+    console.log(id)
+
     const takePhoto = () => {
         launchCamera({
             mediaType: 'photo',
