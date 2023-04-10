@@ -73,7 +73,7 @@ export const ProductScreen = ({ navigation, route }: Props) => {
         }
     }
 
-    console.log('Hello')
+
 
     const takePhoto = () => {
         launchCamera({
