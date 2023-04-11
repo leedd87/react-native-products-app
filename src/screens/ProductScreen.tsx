@@ -151,7 +151,7 @@ export const ProductScreen = ({ navigation, route }: Props) => {
                             <View style={{ width: 10 }} />
                             <Button
                                 title='Galeria'
-                                onPress={() => { }}
+                                onPress={takePhotoFromGallery}
                                 color='#5856D6'
                             />
 
