@@ -23,7 +23,7 @@ export const ProductScreen = ({ navigation, route }: Props) => {
     const [tempUri, setTempUri] = useState<string>()
 
     const { isLoading, categories } = useCategories()
-    const { loadProductById, addProduct, updateProduct } = useContext(ProductsContext)
+    const { loadProductById, addProduct, updateProduct, uploadImage } = useContext(ProductsContext)
 
     const { _id, categoriaId, nombre, img, form, onChange, setFormValue } = useForm({
         _id: '',
@@ -77,14 +77,31 @@ export const ProductScreen = ({ navigation, route }: Props) => {
 
     const takePhoto = () => {
         launchCamera({
+            cameraType: 'back',
             mediaType: 'photo',
             quality: 0.5
         }, (resp) => {
             if (resp.didCancel) return;
             if (!resp.assets![0].uri) return
             setTempUri(resp.assets?.[0].uri)
-
+            uploadImage(resp, _id)
         })
+    }
+
+
+    const takePhotoFromGallery = () => {
+        launchImageLibrary({
+            mediaType: 'photo',
+            quality: 0.5
+        },
+            resp => {
+                if (resp.didCancel) return;
+                if (!resp.assets![0].uri) return
+                console.log(resp);
+                setTempUri(resp.assets?.[0].uri)
+                uploadImage(resp, _id)
+            }
+        )
     }
 
     return (
